@@ -1,0 +1,322 @@
+*********PRACTICAL NO. 3****************
+---CREATE---
+create table holder(u_id number primary key,Name varchar(30),age number, Policy_no number,Address varchar(50));
+insert into holder values(1,'Nilesh Wani',21,270,'Chikalthana Aurangabad');
+insert into holder values(2,'Ujair Shaha',20,271,'Cidco');
+insert into holder values(3,'Abhisheck Jadhav',25,272,'Ramnagar');
+insert into holder values(4,'Udyan Suradkar',28,273,'N-2');
+select * from holder;
+
+---ALTER--
+alter table holder add mobile_no number; 
+
+alter table holder modify mobile_no varchar(20); 
+
+alter table holder drop column mobile_no; 
+
+---TRUNCATE--
+truncate table holder;
+select * from holder;
+
+---DROP---
+drop table holder;
+select * from holder;
+
+*********PRACTICAL NO. 4****************
+
+create table plan(p_id number primary key,Type varchar(30) not null,Ammount number,Duration number);
+
+---INSERT---
+insert into plan values(121,'Super',200000,2);
+insert into plan values(122,'Normal',100000,1);
+insert into plan values(123,'Special',300000,3);
+insert into plan values(124,'Super Special',500000,5);
+
+---SELECT---
+select * from plan;
+select type,ammount from plan where duration>=3;
+
+---UPDATE---
+update plan set duration=3 where type='Super';
+select * from plan;
+
+---DELETE---
+delete from plan where duration=1;
+
+
+*********PRACTICAL NO. 5****************
+
+---PRIMARY KEY---AND---UNIQUE---
+create table holder(u_id number primary key,Name varchar(30),age number, Policy_no number UNIQUE,Address varchar(50));
+insert into holder values(1,'Nilesh Wani',21,270,'Chikalthana Aurangabad');
+insert into holder values(2,'Ujair Shaha',20,271,'Cidco');
+insert into holder values(3,'Abhisheck Jadhav',25,272,'Ramnagar');
+insert into holder values(4,'Udyan Suradkar',28,273,'N-2');
+select * from holder;
+
+insert into holder2 values(3,'Abhisheck Jadhav',25,272,'Ramnagar');
+
+insert into holder values(6,'Yash Tupe',28,273,'N-2');
+
+---NOT NULL---
+create table plan2(p_id number primary key,Type varchar(30) not null,Ammount number,Duration number CHECK(Duration <=10));
+insert into plan2 values(121,'Super',200000,2);
+insert into plan values(122,'Normal',100000,1);
+insert into plan values(123,'Special',300000,3);
+insert into plan values(124,'Super Special',500000,5);
+select * from plan;
+
+insert into plan values(123,'',300000,3);
+
+---FOREIGN KEY---
+create table purchase2(u_id number,p_id number,validity number, foreign key(u_id) references holder(u_id), foreign key(p_id) references plan(p_id));
+insert into purchase2 values(1,121,2);
+insert into purchase values(3,123,3);
+insert into purchase values(4,122,5);
+insert into purchase values(2,121,2);
+select * from purchase2;
+drop table purchase2;
+
+insert into purchase values(9,121,2);
+
+---DEFAULT---Status varchar(20) DEFAULT 'YES'----
+insert into purchase values(2,121,2,'');
+
+---INDEX---
+CREATE INDEX holder_index ON holder(Policy_no );
+select * from holder;
+
+
+
+*********PRACTICAL NO. 6****************
+
+CREATE TABLE Student (id int PRIMARY KEY, admission_no varchar(45),first_name varchar(45),last_name varchar(45) ,age int,city varchar(25));
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES (1,3770,'Nilesh', 'Wani', 22, 'Aurangabad'); 
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(2,3765, 'Ujiar', 'shaha', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(3,3763, 'Vedant', 'Kathar', 20, 'Nanded');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(4,3775,'Kunal', 'Jajure', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(5,3735, 'Nilesh', 'Thengade', 20, 'Mumbai');  
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(6,3773, 'shweta', 'Fad', 21, 'Pune');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(7,3702,'Abhijeet', 'Patil', 14, 'Jalna');       
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(8,3762, 'Urja', 'Darbharde', 13, 'Aurangabad');
+select * from Student;
+
+CREATE TABLE Fee (admission_no varchar(45) NOT NULL,course varchar(45),amount_paid int);  
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES (3770,'Java', 20000);      
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3702, 'Android', 22000);       
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3763, 'Python', 18000);   
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3762,'SQL', 15000);   
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3775, 'Machine Learning', 30000); 
+select * from Fee;
+
+
+---COUNT---
+SELECT COUNT(*) FROM Student;
+SELECT COUNT(*) FROM Student WHERE age>=20;  
+
+---SUM---
+SELECT SUM(amount_paid ) FROM Fee;  
+
+---MAX---
+SELECT MAX(amount_paid) FROM Fee;  
+
+---MIN---
+SELECT MIN(amount_paid) FROM Fee;  
+
+---AVG---
+SELECT AVG(amount_paid) FROM Fee;  
+SELECT AVG(age) FROM Student;
+
+---GROUP BY--
+SELECT age, COUNT(*) FROM Student GROUP BY age;  
+
+---ORDER BY--
+SELECT * FROM Student ORDER BY first_name;
+
+
+
+*********PRACTICAL NO. 7****************
+CREATE TABLE Student (id int PRIMARY KEY, admission_no varchar(45),first_name varchar(45),last_name varchar(45) ,age int,city varchar(25));
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES (1,3770,'Nilesh', 'Wani', 22, 'Aurangabad'); 
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(2,3765, 'Ujiar', 'shaha', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(3,3763, 'Vedant', 'Kathar', 20, 'Nanded');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(4,3775,'Kunal', 'Jajure', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(5,3735, 'Nilesh', 'Thengade', 20, 'Mumbai');  
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(6,3773, 'shweta', 'Fad', 21, 'Pune');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(7,3702,'Abhijeet', 'Patil', 14, 'Jalna');       
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(8,3762, 'Urja', 'Darbharde', 13, 'Aurangabad');
+select * from Student;
+
+CREATE TABLE Student2 (id int PRIMARY KEY, admission_no varchar(45),first_name varchar(45),last_name varchar(45) ,age int,city varchar(25));
+INSERT INTO Student2 (id,admission_no, first_name, last_name, age, city) VALUES (1,3770,'Nilesh', 'Wani', 22, 'Aurangabad'); 
+INSERT INTO Student2(id,admission_no, first_name, last_name, age, city) VALUES(9,3761, 'Tejas', 'Kalankar', 23, 'Jalna');      
+INSERT INTO Student2 (id,admission_no, first_name, last_name, age, city) VALUES(10,3768, 'Yash', 'Tupe', 19, 'Nanded');    
+INSERT INTO Student2 (id,admission_no, first_name, last_name, age, city) VALUES(4,3736,'Kunal', 'Jajure', 23, 'Jalna');      
+INSERT INTO Student2 (id,admission_no, first_name, last_name, age, city) VALUES(11,3735, 'Sarika', 'Sathe', 20, 'Mumbai');  
+select * from Student2;
+    
+  
+CREATE TABLE Fee (admission_no varchar(45) NOT NULL,course varchar(45),amount_paid int);  
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES (3770,'Java', 20000);      
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3702, 'Android', 22000);       
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3763, 'Python', 18000);   
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3762,'SQL', 15000);   
+INSERT INTO Fee (admission_no, course, amount_paid) VALUES(3775, 'Machine Learning', 30000); 
+select * from Fee;
+
+***SELF JOIN***
+SELECT S1.first_name, S2.last_name, S2.city  
+FROM Student S1, Student S2  
+WHERE S1.id <> S2.iD AND S1.city = S2.city  
+ORDER BY S2.city;  
+
+
+***CROSS JOIN***
+SELECT Student.admission_no, Student.first_name, Student.last_name, Fee.course, Fee.amount_paid  
+FROM Student  
+CROSS JOIN Fee  
+WHERE Student.admission_no = Fee.admission_no;  
+
+
+***OUTER JOIN***
+SELECT Student.admission_no, Student.first_name, Student.last_name, Fee.course, Fee.amount_paid  
+FROM Student  
+LEFT OUTER JOIN Fee  
+ON Student.admission_no = Fee.admission_no; 
+
+
+***RIGHT OUTER JOIN***
+SELECT Student.admission_no, Student.first_name, Student.last_name, Fee.course, Fee.amount_paid  
+FROM Student  
+RIGHT OUTER JOIN Fee  
+ON Student.admission_no = Fee.admission_no; 
+
+
+***LEFT OUTER JOIN***
+SELECT Student.admission_no, Student.first_name, Student.last_name, Fee.course, Fee.amount_paid  
+FROM Student  
+LEFT OUTER JOIN Fee  
+ON Student.admission_no = Fee.admission_no;  
+  
+
+***FULL OUTER JOIN***
+SELECT Student.admission_no, Student.first_name, Student.last_name, Fee.course, Fee.amount_paid  
+FROM Student  
+FULL OUTER JOIN Fee  
+ON Student.admission_no = Fee.admission_no;  
+
+
+---SIMPLE SUBQUERY----
+select * from Student where admission_no=(select admission_no from Fee where amount_paid =20000);
+
+
+---MUPLTIPLE SUBQUERY----
+UPDATE Fee SET  amount_paid=amount_paid+(amount_paid*0.5) where admission_no=(select admission_no from student where first_name='Urja');
+
+DELETE FROM Student WHERE AGE IN (SELECT AGE FROM Student2 WHERE AGE = (select avg(age) from Student2));
+
+INSERT INTO Student SELECT * FROM Student2 WHERE id=(SELECT id FROM student2 where age=(select avg(age) from Student2));
+
+---UNION---
+SELECT * FROM Student UNION SELECT *FROM Student2;
+
+---UNIONALL---
+SELECT * FROM Student UNION ALL SELECT *FROM Student2;
+
+---INTERSECT---
+SELECT * FROM Student2 INTERSECT SELECT *FROM Student;
+
+---MINUS---
+SELECT * FROM Student MINUS SELECT *FROM Student2;
+SELECT * FROM Student2 MINUS SELECT *FROM Student;
+
+
+
+*********PRACTICAL NO. 8****************
+
+CREATE TABLE admit(pat_no number,admit_date number,dischar_date number,days_admited number);
+INSERT INTO admit VALUES(33,'04/12/2022','07/12/2022',3);
+INSERT INTO admit VALUES(34,'04/12/2022','09/12/2022',5);
+
+
+CREATE TRIGGER trig_add
+AFTER INSERT
+ON admit
+FOR EACH ROW
+BEGIN
+UPDATE admit SET days_admited=dischar_date - admit_date
+END;
+
+INSERT INTO admit VALUES(35,'09/12/2022','12/12/2022',0);
+INSERT INTO admit VALUES(36,'10/12/2022','11/12/2022',0);
+
+
+CREATE TRIGGER trig_bkp
+BEFORE DELETE
+ON admit
+FOR EACH ROW
+BEGIN
+INSERT INTO amdmit_bkp from select * from admit;
+END;
+
+CREATE TABLE Student (id int PRIMARY KEY, admission_no varchar(45),first_name varchar(45),last_name varchar(45) ,age int,city varchar(25));
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES (1,3770,'Nilesh', 'Wani', 22, 'Aurangabad'); 
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(2,3765, 'Ujiar', 'shaha', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(3,3763, 'Vedant', 'Kathar', 20, 'Nanded');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(4,3775,'Kunal', 'Jajure', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(5,3735, 'Nilesh', 'Thengade', 20, 'Mumbai');  
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(6,3773, 'shweta', 'Fad', 21, 'Pune');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(7,3702,'Abhijeet', 'Patil', 14, 'Jalna');       
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(8,3762, 'Urja', 'Darbharde', 13, 'Aurangabad');
+SELECT * FROM Student;
+
+---SIMPLE VIEW---
+CREATE VIEW view1 AS SELECT id,first_name,city FROM Student;
+SELECT * FROM view1;
+
+---VIEW WITH CONDITION---
+CREATE VIEW view2 AS SELECT id,first_name,city,admission_no FROM Student WHERE city= 'Jalna';
+SELECT * FROM view2;
+
+---VIEW WITH SUBQUERY---
+CREATE VIEW view3 AS SELECT id,first_name,city,admission_no FROM Student WHERE age >= (SELECT AVG(age) FROM Student);
+SELECT * FROM view3;
+
+---DROP VIEW---
+DROP VIEW view1;
+
+
+*********PRACTICAL NO. 10****************
+
+CREATE TABLE Student (id int PRIMARY KEY, admission_no varchar(45),first_name varchar(45),last_name varchar(45) ,age int,city varchar(25));
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES (1,3770,'Nilesh', 'Wani', 22, 'Aurangabad'); 
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(2,3765, 'Ujiar', 'shaha', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(3,3763, 'Vedant', 'Kathar', 20, 'Nanded');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(4,3775,'Kunal', 'Jajure', 23, 'Jalna');      
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(5,3735, 'Nilesh', 'Thengade', 20, 'Mumbai');  
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(6,3773, 'shweta', 'Fad', 21, 'Pune');    
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(7,3702,'Abhijeet', 'Patil', 14, 'Jalna');       
+INSERT INTO Student (id,admission_no, first_name, last_name, age, city) VALUES(8,3762, 'Urja', 'Darbharde', 13, 'Aurangabad');
+SELECT * FROM Student;
+
+CREATE USER Nil IDENTIFIED BY Nilesh;
+
+DROP USER Nil;
+
++++++++++++DCL++++++++++++++++
+---GRANT---
+GRANT SELECT, UPDATE ON Student TO Nil;  
+
+---REVOKE---
+REVOKE SELECT, UPDATE ON student FROM Nil;  
+
++++++++++++TCL++++++++++++++++
+
+--COMMIT---
+Commit;
+
+---ROLLBACK---
+ROLLBACK; 
+
+---SAVEPOINT--
+SAVEPOINT s;
